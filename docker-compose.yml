@@ -1,0 +1,14 @@
+postgres:
+  image: postgres:latest
+  ports:
+    - 5432:5432
+
+rhythm:
+  dockerfile: Dockerfile
+  build: .
+  volumes:
+        - .:/var/www/html
+  links:
+    - postgres:pg
+  ports:
+    - 80:80
