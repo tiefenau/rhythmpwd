@@ -23,7 +23,7 @@
 							<div class="container">
 								<ul>
 									<li><a href="#tab1" data-toggle="tab">Training</a></li>
-									<!--<li><a href="#tab2" data-toggle="tab">Login</a></li>-->
+									<li><a href="#tab2" data-toggle="tab">Login</a></li>
 									<li><a href="#tab3" data-toggle="tab">Survey</a></li>
 									<li><a href="#tab4" data-toggle="tab">Finish</a></li>
 								</ul>
@@ -38,17 +38,17 @@
 							<div class="row">
 								<div class="col-md-12" ng-show="trainingSize-initialTrainings>0">Please enter it {{trainingSize-initialTrainings}} more times.</div>
 							</div>
-							<!--<div class="row">
+							<div class="row">
 								<div class="col-md-4">{{distributionMethod.trainings}} training samples</div>
 								<div class="col-md-4 col-md-offset-4">{{distributionMethod.trainStatusMsg}}</div>
 								<div class="col-md-12">Hashed Password: {{restMethod.hashedPwd}}</div>
-							</div>-->
+							</div>
 						</div>
-						<!--<div class="tab-pane" id="tab2">
+						<div class="tab-pane" id="tab2">
 							<h1 class="cover-heading">Login section</h1>
 							<p class="lead">Please enter your password again to start the survey</p>
 							<input class="form-control" type="password" id="pwdtest" ng-keydown="keyEvent($event, false)" ng-keyup="" ng-model="pwdtest">
-							<!--<div class="row">
+							<div class="row">
 								<div class="col-md-6" style="border-right: white 1px solid">
 									<div class="row">
 										<div clasS="col-md-12"><h4>Distribution Method</h4></div>
@@ -74,9 +74,14 @@
 										<div class="col-md-12 text-left">Current :{{restMethod.restTimes}}</div>
 									</div>
 								</div>
+								<div class="col-md-12">
+
+                                        <canvas id="chart" class="chart chart-bar" chart-data="chartdata" chart-labels="chartlabels" chart-series="chartseries"></canvas>
+
+								</div>
 
 							</div>
-						</div>-->
+						</div>
 						<div class="tab-pane" id="tab3">
 							<div class="col-md-12">
 								Survey here
@@ -177,7 +182,7 @@
 		$scope.initialTrainings = 0;
 
 		$scope.distributionMethod = {
-			'adaption' : true,
+			'adaption' : false,
 			'trainStatusMsg' :'',
 			'validateStatusMsg': '',
 			'loginStyle': 'white',
@@ -205,9 +210,8 @@
 				$scope.reset();
 
 				if($scope.initialTrainings == $scope.trainingSize){
-					$('#nexty').click();
-					$('#pwdtest'+(training?"":"2")).focus();
-
+					/*$('#nexty').click();
+					$('#pwdtest'+(training?"":"2")).focus();*/
 				}
 
 				if(finished){
