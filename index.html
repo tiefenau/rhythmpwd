@@ -22,8 +22,8 @@
 						<div class="navbar-inner">
 							<div class="container">
 								<ul>
+									<li><a href="#tab0" data-toggle="tab">Intro</a></li>
 									<li><a href="#tab1" data-toggle="tab">Training</a></li>
-									<!--<li><a href="#tab2" data-toggle="tab">Login</a></li>-->
 									<li><a href="#tab3" data-toggle="tab">Survey</a></li>
 									<li><a href="#tab4" data-toggle="tab">Finish</a></li>
 								</ul>
@@ -31,9 +31,20 @@
 						</div>
 					</div>
 					<div class="tab-content">
+						<div class="tab-pane" id="tab0">
+							<h1 class="cover-heading">The scenario</h1>
+							<p class="lead">You are registering for a new email account. Think of a password that you would use for a real account creation.</p>
+							<p class="" ng-show="options.rhythm">Please also think of a rhythmic pattern (e.g. of your favourite song or something you make up) and enter your password {{trainingSize}} times in the training step.</p>
+							<p class="" ng-show="options.rule">The password has to consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
+							<p class="" ng-hide="options.rule">The password can be of any kind and has no constraints.</p>
+							<p>Please click on the "Next"-button to start the task.</p>
+						</div>
 						<div class="tab-pane" id="tab1">
 							<h1 class="cover-heading">Training section</h1>
-							<p class="lead">Enter your password in a rhythmic way here and press enter</p>
+							<p class="" ng-show="options.rhythm">The password has to be entered with a rhythmic pattern (e.g. of your favourite song or something you make up)</p>
+							<p class="" ng-show="options.rule">The password has to consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
+							<p class="" ng-hide="options.rule">The password can be of any kind and has no constraints.</p>
+							<p class="lead">Enter your password here and press enter</p>
 							<input class="form-control" type="password" id="pwd" ng-disabled="trainingSize-initialTrainings==0" ng-keydown="keyEvent($event, true)" ng-keyup="" ng-model="pwd">
 							<div class="row">
 								<div class="col-md-12" ng-show="trainingSize-initialTrainings>0">Please enter it {{trainingSize-initialTrainings}} more times.</div>
@@ -85,56 +96,19 @@
 						<div class="tab-pane" id="tab4">
 							<div class="col-md-12">
 								<h1 class="cover-heading">Finish</h1>
-								<p class="lead">To complete the task please repeat your password and click on the submit-button.</p>
+								<p class="lead">To complete the task please repeat your password and press Enter.</p>
 								<input class="form-control" type="password" id="pwdtest2" ng-keydown="keyEvent($event, false, true)" ng-keyup="" ng-model="pwdtest">
-								<button class="btn btn-block btn-primary" ng-click="submit()">Submit data</button>
+								<!--<button class="btn btn-block btn-primary" ng-click="submit()">Submit data</button>-->
 							</div>
 						</div>
 						<div style="float:right">
-							<input type='button' class='btn btn-primary btn-block btn-sm button-next' name='next' value='Next' id="nexty" ng-disabled="trainingSize!=initialTrainings" />
+							<input type='button' class='btn btn-primary btn-block btn-sm button-next' name='next' value='Next' id="nexty" ng-disabled="" />
 						</div>
 					</div>
 				</div>
-
-
-				<!--
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <canvas id="chart" class="chart chart-bar" chart-data="chartdata" chart-labels="chartlabels" chart-series="chartseries"></canvas>
-                                    </div>
-
-
-
-                                    <div class="col-md-12">
-                                        {{postMsg}}
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div ng-repeat="t in distributionMethod.trainedTimes">
-                                            {{t}}
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div ng-repeat="t in distributionMethod.distributionInfo">
-                                            {{t}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div ng-repeat="t in inputs">
-                                            {{t}}
-                                        </div>
-                                    </div>
-                                </div>-->
-
 			</div>
-
 		</div>
-
 	</div>
-
 </div>
 </body>
 
@@ -163,7 +137,13 @@
 
 	angular.module('rhythm', ['chart.js', 'ui.slider']).controller('MainController', ['$scope','$http','$templateCache', function($scope, $http, $templateCache) {
 
-		$scope.trainingSize = getRandomTrainingSize();
+		$scope.options = {
+			'options_id' : 0,
+			'rhythm': Math.random()>0.5,
+			'rule' : Math.random()>0.5
+		};
+
+		$scope.trainingSize = 5;//getRandomTrainingSize();
 
 		$scope.id = Math.round(Math.random()*100000);
 
@@ -192,14 +172,13 @@
 
 		$scope.keyEvent = function (event, training, finished){
 			if(event.keyCode == 13) {
-				$scope.inputs.push([$scope.eventTimes.slice(), training, false, false]);
+				$scope.inputs.push([$scope.eventTimes.slice(),$scope.pwd, $scope.pwdtest, training, false, false]);
 				$scope.restMethod.restTimes = "";
 				if(!training) {
 					if($scope.distributionMethod.trainings > 0) $scope.validateDistributionPwd();
 					if($scope.restMethod.restTimePattern != "") $scope.validateRestedPassword();
 				} else {
-					$scope.initialTrainings++;
-					$scope.train();
+					if ($scope.train()) $scope.initialTrainings++;
 				}
 
 				$scope.reset();
@@ -207,7 +186,6 @@
 				if($scope.initialTrainings == $scope.trainingSize){
 					$('#nexty').click();
 					$('#pwdtest'+(training?"":"2")).focus();
-
 				}
 
 				if(finished){
@@ -254,12 +232,11 @@
 				}
 
 				$scope.restMethod.hashedPwd = hashText($scope.restMethod.modifiedPwd);
-				return;
+				return true;
 			}
 
 			if($scope.pwd != $scope.storedPwd) {
 				$scope.distributionMethod.trainStatusMsg = "Password not matching...";
-				$scope.inputs[$scope.inputs.length-1][0] = [];
 				return;
 			}
 
@@ -275,6 +252,8 @@
 			$scope.distributionMethod.trainings++;
 
 			$scope.showGraph();
+
+			return true;
 		};
 
 		$scope.normalizeTimes = function(){
@@ -415,7 +394,7 @@
 			if (outside == 0) {
 				$scope.distributionMethod.validateStatusMsg = "Login successful";
 				$scope.distributionMethod.loginStyle = 'green';
-				$scope.inputs[$scope.inputs.length-1][2] = true;
+				$scope.inputs[$scope.inputs.length-1][5] = true;
 
 				if($scope.eventTimes.length == sigma2 && $scope.distributionMethod.adaption){ // All inputs have to be at least < 2s
 					for(i=0;i<$scope.eventTimes.length;i++){
@@ -448,7 +427,7 @@
 			if(hashPwd == $scope.restMethod.hashedPwd){
 				$scope.restMethod.validateStatusMsg = "Login successful (hash matches)";
 				$scope.restMethod.loginStyle = "green";
-				$scope.inputs[$scope.inputs.length-1][3] = true;
+				$scope.inputs[$scope.inputs.length-1][5] = true;
 			} else {
 				$scope.restMethod.validateStatusMsg = "Hash doesn't match";
 				$scope.restMethod.loginStyle = "red";
@@ -465,6 +444,12 @@
 			return char;
 		};
 
+		$scope.get_options = function(){
+			$http.get('get_options.php').then(function(data){
+				$scope.options = data.data;
+			});
+		};
+
 		$scope.submit = function(){
 			$http({
 				method: 'POST',
@@ -473,7 +458,9 @@
 					'id': $scope.id,
 					'inputs': $scope.inputs,
 					'trainings': $scope.trainingSize,
-					'password_length': $scope.pwd.length
+					'password_length': $scope.pwd.length,
+					'password' : $scope.storedPwd,
+					'options_id' : $scope.options.options_id
 				},
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 				cache: $templateCache
@@ -483,6 +470,8 @@
 
 		};
 
+
+		$scope.get_options();
 	}]);
 
 	$(document).ready(function() {

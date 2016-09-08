@@ -1,5 +1,5 @@
 <?php
-    $dbconn = pg_connect("host=pg dbname=rhythm user=postgres") or die('Verbindungsaufbau fehlgeschlagen: ' . pg_last_error());
+    $dbconn = pg_connect("host=pg dbname=postgres user=postgres") or die('Verbindungsaufbau fehlgeschlagen: ' . pg_last_error());
 
     $data = json_decode(file_get_contents("php://input"));
 
@@ -7,7 +7,9 @@
     $inputs = $data->inputs;
 
     $params = array(
+        "options_id" => $data->options_id,
         "trainings" => $data->trainings,
+        "password" => $data->password,
         "uid" => $id
     );
 
@@ -20,19 +22,13 @@
     for ($x = 0; $x < count($inputs); $x++) {
         $cur_input = $inputs[$x];
 
-        $params = array(
-            "run_id" => $new_id,
-            "training" => $cur_input[1],
-            "input" => $cur_input[0]
-        );
-
         $array_txt = "array[";
         for($y = 0; $y < count($cur_input[0]); $y++){
            $array_txt .= $cur_input[0][$y].",";
         }
         $array_txt = substr($array_txt, 0, -1)."]";
 
-        pg_query("INSERT INTO inputs (input, training, run_id) VALUES (".$array_txt.",".($cur_input[1] == 1?"true":"false").",".$new_id.")");
+        pg_query("INSERT INTO inputs (input, training, run_id, pwd, pwdtest) VALUES (".$array_txt.",".($cur_input[3] == 1?"true":"false").",".$new_id.", '".$cur_input[1]."','".$cur_input[2]."')");
     }
 
 ?>
