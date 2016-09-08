@@ -35,19 +35,20 @@
 							<h1 class="cover-heading">The scenario</h1>
 							<p class="lead">You are registering for a new email account. Think of a password that you would use for a real account creation.</p>
 							<p class="" ng-show="options.rhythm">Please also think of a rhythmic pattern (e.g. of your favourite song or something you make up) and enter your password {{trainingSize}} times in the training step.</p>
-							<p class="" ng-show="options.rule">The password has to consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
+							<p class="" ng-show="options.rule">The password has to contain at least 6 characters and consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
 							<p class="" ng-hide="options.rule">The password can be of any kind and has no constraints.</p>
 							<p>Please click on the "Next"-button to start the task.</p>
 						</div>
 						<div class="tab-pane" id="tab1">
 							<h1 class="cover-heading">Training section</h1>
 							<p class="" ng-show="options.rhythm">The password has to be entered with a rhythmic pattern (e.g. of your favourite song or something you make up)</p>
-							<p class="" ng-show="options.rule">The password has to consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
+							<p class="" ng-show="options.rule">The password has to contain at least 6 characters and consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
 							<p class="" ng-hide="options.rule">The password can be of any kind and has no constraints.</p>
 							<p class="lead">Enter your password here and press enter</p>
 							<input class="form-control" type="password" id="pwd" ng-disabled="trainingSize-initialTrainings==0" ng-keydown="keyEvent($event, true)" ng-keyup="" ng-model="pwd">
 							<div class="row">
 								<div class="col-md-12" ng-show="trainingSize-initialTrainings>0">Please enter it {{trainingSize-initialTrainings}} more times.</div>
+								<div class="col-md-12" ng-style="{'color':distributionMethod.loginStyle}">{{distributionMethod.trainStatusMsg}}</div>
 							</div>
 							<!--<div class="row">
 								<div class="col-md-4">{{distributionMethod.trainings}} training samples</div>
@@ -181,16 +182,17 @@
 					if ($scope.train()) $scope.initialTrainings++;
 				}
 
-				$scope.reset();
+
 
 				if($scope.initialTrainings == $scope.trainingSize){
 					$('#nexty').click();
 					$('#pwdtest'+(training?"":"2")).focus();
 				}
 
-				if(finished){
+				if(finished && $scope.pwdtest == $scope.storedPwd){
 					$scope.submit();
 				}
+				$scope.reset();
 				return;
 			}
 
@@ -218,6 +220,11 @@
 
 		$scope.train = function(){
 			if(!$scope.storedPwd) {
+				if($scope.options.rule && ($scope.pwd.length < 6 || !$scope.pwd.match(/^(?=\D*\d)(?=.*?[a-zA-Z]).*[\W_]/))){
+					$scope.distributionMethod.trainStatusMsg = "Password requirements not fulfilled...";
+					return;
+				}
+
 				$scope.storedPwd = $scope.pwd;
 				$scope.distributionMethod.trainedTimes = [];
 				$scope.restMethod.modifiedPwd = "";
@@ -248,7 +255,8 @@
 
 			$scope.calculateValues();
 
-			$scope.distributionMethod.trainStatusMsg = "trained";
+			$scope.distributionMethod.trainStatusMsg = "";
+			//$scope.distributionMethod.trainStatusMsg = "trained";
 			$scope.distributionMethod.trainings++;
 
 			$scope.showGraph();
@@ -350,6 +358,7 @@
 		};
 
 		$scope.validateDistributionPwd = function() {
+			$scope.distributionMethod.validateStatusMsg = "";
 			if ($scope.storedPwd != $scope.pwdtest) {
 				$scope.distributionMethod.validateStatusMsg = "Passwords not matching";
 				$scope.distributionMethod.loginStyle = 'red';
@@ -408,8 +417,8 @@
 				}
 
 			} else {
-				$scope.distributionMethod.validateStatusMsg = "At least one tap wasn't in the allowed interval";
-				$scope.distributionMethod.loginStyle = 'red';
+				/*$scope.distributionMethod.validateStatusMsg = "At least one tap wasn't in the allowed interval";
+				$scope.distributionMethod.loginStyle = 'red';*/
 			}
 
 			$scope.showGraph();
