@@ -1,5 +1,7 @@
 postgres:
   image: postgres:latest
+  volumes:
+    - ./postgres:/docker-entrypoint-initdb.d/
   ports:
     - 5432:5432
 
