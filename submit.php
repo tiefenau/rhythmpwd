@@ -28,6 +28,8 @@
 
     $new_id = pg_fetch_row($result)[0];
 
+    pg_query("INSERT INTO survey (findrhythm, easyrhythm, age, instrument, browser, run_id) VALUES (".$data->findRhythm.",".$data->easyRhythm.",".$data->age.",".$data->instrument.",'".$data->browser."',".$new_id.")");
+
     for ($x = 0; $x < count($inputs); $x++) {
         $cur_input = $inputs[$x];
 

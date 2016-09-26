@@ -45,7 +45,7 @@
 							<p class="" ng-show="options.rule==1">The password has to contain at least 6 characters and consist of at least 1 letter, 1 number and 1 special character ($%&/()=...).</p>
 							<p class="" ng-hide="options.rule==1">The password can be of any kind and has no constraints.</p>
 							<p class="lead">Enter your password here and press enter</p>
-							<input class="form-control" type="password" id="pwd" ng-disabled="trainingSize-initialTrainings==0" ng-keydown="keyEvent($event, true)" ng-keyup="" ng-model="pwd">
+							<input class="form-control" type="password" id="pwd" ng-disabled="trainingSize-initialTrainings==0" ng-keydown="keyEvent($event, true)" ng-keyup="keyUp($event)" ng-model="pwd">
 							<div class="row">
 								<div class="col-md-12" ng-show="trainingSize-initialTrainings>0">Please enter it {{trainingSize-initialTrainings}} more times.</div>
 								<div class="col-md-12" ng-style="{'color':distributionMethod.loginStyle}">{{distributionMethod.trainStatusMsg}}</div>
@@ -54,14 +54,108 @@
 
 						<div class="tab-pane" id="tab3">
 							<div class="col-md-12">
-								Survey here
+								<h1 class="cover-heading">Survey</h1>
+								<div class="row" style="margin-bottom:20px;">
+									<div class="col-md-12"><span>How easy was it for you to find a rhythm? (1:easy to 5:hard)</span></div>
+									<div class="col-md-12">
+										<label class="radio-inline">
+											<input type="radio" name="findRhythm" ng-model="findRhythm" value="1"> 1
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="findRhythm" ng-model="findRhythm" value="2"> 2
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="findRhythm" ng-model="findRhythm" value="3"> 3
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="findRhythm" ng-model="findRhythm" value="4"> 4
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="findRhythm" ng-model="findRhythm" value="5"> 5
+										</label>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom:20px;">
+									<div class="col-md-12"><span>How easy was it for you to enter your password with this rhythm? (1:easy to 5:hard)</span></div>
+									<div class="col-md-12">
+										<label class="radio-inline">
+											<input type="radio" name="easyRhythm" ng-model="easyRhythm" value="1"> 1
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="easyRhythm" ng-model="easyRhythm" value="2"> 2
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="easyRhythm" ng-model="easyRhythm" value="3"> 3
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="easyRhythm" ng-model="easyRhythm" value="4"> 4
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="easyRhythm" ng-model="easyRhythm" value="5"> 5
+										</label>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom:20px;">
+									<div class="col-md-12"><span>Do you play an instrument?</span></div>
+									<div class="col-md-12">
+										<label class="radio-inline">
+										  	<input type="radio" name="instrument" ng-model="instrument" value="0"> no
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="instrument" ng-model="instrument" value="1"> yes
+										</label>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom:20px;">
+									<div class="col-md-12"><span>What is your age?</span></div>
+									<div class="col-md-12">
+										<label class="radio-inline">
+											<input type="radio" name="age" ng-model="age" value="1"> 18-24
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="age" ng-model="age" value="2"> 25-34
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="age" ng-model="age" value="3"> 35-44
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="age" ng-model="age" value="4"> 45-54
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="age" ng-model="age" value="5"> 55-64
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="age" ng-model="age" value="6"> 65 or older
+										</label>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom:20px;">
+									<div class="col-md-12"><span>What browser are you using?</span></div>
+									<div class="col-md-12">
+										<label class="radio-inline">
+											<input type="radio" name="browser" ng-model="browser" value="firefox"> Firefox
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="browser" ng-model="browser" value="ie"> Internet Explorer
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="browser" ng-model="browser" value="opera"> Opera
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="browser" ng-model="browser" value="safari"> Safari
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" name="browser" ng-model="browser" value="other"> Other
+										</label>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="tab-pane" id="tab4">
 							<div class="col-md-12">
 								<h1 class="cover-heading">Finish</h1>
 								<p class="lead">To complete the task please repeat your password and press Enter.</p>
-								<input class="form-control" type="password" id="pwdtest2" ng-keydown="keyEvent($event, false, true)" ng-keyup="" ng-model="pwdtest">
+								<input class="form-control" type="password" id="pwdtest2" ng-keydown="keyEvent($event, false, true)" ng-keyup="keyUp($event)" ng-model="pwdtest">
 								<!--<button class="btn btn-block btn-primary" ng-click="submit()">Submit data</button>-->
 							</div>
 						</div>
@@ -172,7 +266,12 @@
 			if ($scope.startTime == 0) $scope.startTime = curTime;
 
 			$scope.eventTimes.push(curTime - $scope.startTime);
+		}
 
+		$scope.keyUp = function(event){
+			if(event.keyCode == 8 || event.keyCode == 16 || event.keyCode == 9 || event.keyCode == 13) return;
+			curTime = Date.now();
+			$scope.eventTimes.push(curTime - $scope.startTime);
 		}
 
 		$scope.reset = function(){
@@ -435,7 +534,12 @@
 					'password' : $scope.storedPwd,
 					'rhythm' : $scope.options.rhythm,
                     'rule' : $scope.options.rule,
-                    'mturkid': $scope.mturkid
+                    'mturkid': $scope.mturkid,
+                    'findRhythm': $scope.findRhythm,
+                    'easyRhythm': $scope.easyRhythm,
+                    'age':$scope.age,
+                    'instrument': $scope.instrument,
+                    'browser': $scope.browser
 				},
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 				cache: $templateCache
