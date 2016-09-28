@@ -1,0 +1,256 @@
+<html ng-app="rhythm">
+<head>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="cover.css">
+</head>
+<body ng-controller="MainController">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="margin-top:50px; height:1050px; border-radius: 5px;" >
+            <div style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; border-top-left-radius: 5px; border-top-right-radius: 5px; ">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3 style="margin-top:10px; margin-left:10px;">Rhythmic password usability study</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 style="margin-top:10px; margin-left:10px;">Welcome</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div style="position:absolute; margin-top: 100px; width:96%;">
+                <div class="col-md-12">
+					<div class="row" style="border-bottom:1px grey solid">
+						<div class="col-md-7">Statement</div>
+						<div class="col-md-1 text-center">Strongly disagree</div>
+						<div class="col-md-1 text-center">Disagree</div>
+						<div class="col-md-1 text-center">Neutral</div>
+						<div class="col-md-1 text-center">Agree</div>
+						<div class="col-md-1 text-center">Strongly agree</div>
+					</div>
+					<div class="row surveyblock"  style="border-bottom:1px grey solid">
+						<div class="col-md-7" style="height:35px;">It was easy for me to find a password.</div>
+						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="5"></div>
+						<div class="col-md-7" style="height:35px;">I had difficulties in making up a suitable password.</div>
+						<div class="col-md-1"><input type="radio" name="q2" ng-model="q2" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q2" ng-model="q2" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q2" ng-model="q2" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q2" ng-model="q2" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q2" ng-model="q2" value="5"></div>
+						<div class="col-md-7" style="height:35px;">Entering the password was easy.</div>
+						<div class="col-md-1"><input type="radio" name="q3" ng-model="q3" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q3" ng-model="q3" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q3" ng-model="q3" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q3" ng-model="q3" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q3" ng-model="q3" value="5"></div>
+						<div class="col-md-7" style="height:35px;">It was hard to enter my password.</div>
+						<div class="col-md-1"><input type="radio" name="q4" ng-model="q4" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q4" ng-model="q4" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q4" ng-model="q4" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q4" ng-model="q4" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q4" ng-model="q4" value="5"></div>
+						<div class="col-md-7" style="height:35px;">I think I can remember my password over a long time.</div>
+						<div class="col-md-1"><input type="radio" name="q5" ng-model="q5" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q5" ng-model="q5" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q5" ng-model="q5" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q5" ng-model="q5" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q5" ng-model="q5" value="5"></div>
+						<div class="col-md-7" style="height:35px;">I will forget my password rather soon.</div>
+						<div class="col-md-1"><input type="radio" name="q6" ng-model="q6" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q6" ng-model="q6" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q6" ng-model="q6" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q6" ng-model="q6" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q6" ng-model="q6" value="5"></div>
+					</div>
+
+					<div class="row surveyblock" style="border-bottom:1px grey solid" ng-show="options.rhythm == '1'">
+						<div class="col-md-7" style="height:35px;">It was easy for me to find a rhythm.</div>
+						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="5"></div>
+						<div class="col-md-7" style="height:35px;">I had difficulties in making up a suitable rhythm.</div>
+						<div class="col-md-1"><input type="radio" name="q8" ng-model="q8" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q8" ng-model="q8" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q8" ng-model="q8" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q8" ng-model="q8" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q8" ng-model="q8" value="5"></div>
+
+						<div class="col-md-7" style="height:35px;">The rhythm helps me remembering my password</div>
+						<div class="col-md-1"><input type="radio" name="q9" ng-model="q9" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q9" ng-model="q9" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q9" ng-model="q9" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q9" ng-model="q9" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q9" ng-model="q9" value="5"></div>
+						<div class="col-md-7" style="height:35px;">The rhythm had no influence on my ability to remember my password</div>
+						<div class="col-md-1"><input type="radio" name="q10" ng-model="q10" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q10" ng-model="q10" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q10" ng-model="q10" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q10" ng-model="q10" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q10" ng-model="q10" value="5"></div>
+						<div class="col-md-7" style="height:35px;">I think I can remember my password and rhythm over a long time.</div>
+						<div class="col-md-1"><input type="radio" name="q11" ng-model="q11" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q11" ng-model="q11" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q11" ng-model="q11" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q11" ng-model="q11" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q11" ng-model="q11" value="5"></div>
+						<div class="col-md-7" style="height:35px;">In my opinion I will forget the rhythm very soon.</div>
+						<div class="col-md-1"><input type="radio" name="q12" ng-model="q12" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q12" ng-model="q12" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q12" ng-model="q12" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q12" ng-model="q12" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q12" ng-model="q12" value="5"></div>
+						<div class="col-md-7" style="height:35px;">I can think of using this method every day.</div>
+						<div class="col-md-1"><input type="radio" name="q13" ng-model="q13" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q13" ng-model="q13" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q13" ng-model="q13" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q13" ng-model="q13" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q13" ng-model="q13" value="5"></div>
+						<div class="col-md-7" style="height:35px;">It would annoy me having to enter my password with a rhythic pattern everytime.</div>
+						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="5"></div>
+					</div>
+					<div class="row surveyblock">
+						<div class="col-md-7" style="height:35px;">I use computers regularly.</div>
+						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="1"></div>
+						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="2"></div>
+						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="3"></div>
+						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="4"></div>
+						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="5"></div>
+						<div class="col-md-7">Do you play an instrument?</div>
+						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="instrument" ng-model="instrument" value="0"> no</label></div>
+						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="instrument" ng-model="instrument" value="1"> yes</label></div>
+					</div>
+					<div class="row">
+						<div class="col-md-7">What is your gender?</div>
+						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="1"> Male</label></div>
+						<div class="col-md-2"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="2"> Female</label></div>
+						<div class="col-md-2"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="0"> Prefer not to answer</label></div>
+					</div>
+					<div class="row" style="margin-bottom:20px;">
+						<div class="col-md-7"><span>What is your age?</span></div>
+						<div class="col-md-5"><input type="text" name="age" ng-model="age" value=""></div>
+					</div>
+
+                </div>
+            </div>
+
+            <div ng-show="options.rhythm == '1'" style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; margin-top:1050px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3 style="margin-top:10px; margin-left:10px;"></h3>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block" style="margin-top:10px; margin-left:10px;" ng-click="next()">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-hide="options.rhythm == '1'" style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; margin-top:650px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3 style="margin-top:10px; margin-left:10px;"></h3>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block" style="margin-top:10px; margin-left:10px;" ng-click="next()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+
+<script type="text/javascript">
+
+	angular.module('rhythm', []).controller('MainController', ['$scope','$http','$templateCache', '$location', function($scope, $http, $templateCache, $location) {
+        $scope.startTime = Date.now();
+
+        $scope.q1 = 0;
+        $scope.q2 = 0;
+        $scope.q3 = 0;
+        $scope.q4 = 0;
+        $scope.q5 = 0;
+        $scope.q6 = 0;
+        $scope.q7 = 0;
+        $scope.q8 = 0;
+        $scope.q9 = 0;
+        $scope.q10 = 0;
+        $scope.q11 = 0;
+        $scope.q12 = 0;
+        $scope.q13 = 0;
+        $scope.q14 = 0;
+        $scope.q15 = 0;
+
+		$scope.browser =  (function(){
+			var ua= navigator.userAgent, tem,
+			M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+			if(/trident/i.test(M[1])){
+				tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+				return 'IE '+(tem[1] || '');
+			}
+			if(M[1]=== 'Chrome'){
+				tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+				if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+			}
+			M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+			if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+			return M.join(' ');
+		})();
+
+		$scope.options = {
+            'run_id': $location.search().i,
+			'rhythm': $location.search().rh,
+			'rule' : $location.search().ru
+		};
+
+        $scope.heightcomplete = $scope.options.rhythm == "1" ? "{'height': '1050px'}" : "{'height': '600px'}"
+        $scope.heightbar = $scope.options.rhythm == "1" ? "{'margin-top': '998px'}" : "{'height': '598px'}"
+
+        $scope.next = function(){
+            $http({
+				method: 'POST',
+				url: 'php/log_next.php',
+				data: {
+					'run_id': $scope.options.run_id,
+					'duration': Date.now()-$scope.startTime,
+					'page': 9,
+                    'q1': $scope.q1,
+                    'q2': $scope.q2,
+                    'q3': $scope.q3,
+                    'q4': $scope.q4,
+                    'q5': $scope.q5,
+                    'q6': $scope.q6,
+                    'q7': $scope.q7,
+                    'q8': $scope.q8,
+                    'q9': $scope.q9,
+                    'q10': $scope.q10,
+                    'q11': $scope.q11,
+                    'q12': $scope.q12,
+                    'q13': $scope.q13,
+                    'q14': $scope.q14,
+                    'q15': $scope.q15,
+                    'gender': $scope.gender,
+                    'age':$scope.age,
+                    'instrument': $scope.instrument,
+                    'browser': $scope.browser
+				},
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				cache: $templateCache
+			}).then(function(data){
+                document.location = "/passwordenter.html#?step=7&i="+ $scope.options.run_id+"&ru="+$scope.options.rule+"&rh="+$scope.options.rhythm;
+			});
+        }
+	}]);
+</script>
+
+</html>

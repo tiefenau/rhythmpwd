@@ -12,15 +12,35 @@
                         <h3 style="margin-top:10px; margin-left:10px;">Rhythmic password usability study</h3>
                     </div>
                     <div class="col-md-4">
-                        <h3 style="margin-top:10px; margin-left:10px;"><a href="/index.html#?i=test&ru=1&rh=1">Start</a></h3>
+                        <h3 style="margin-top:10px; margin-left:10px;"></h3>
                     </div>
                 </div>
             </div>
 
-            <div style="position:absolute; margin-top: 200px;">
-                <div class="col-md-12">
-                    <p>Researchers at University of Bonn are conducting a set of experiments with user-chosen passwords. You will have to create a password that has to fulfill a given criteria and then answer a short survey. <br/><br/>The whole study should take you about 10 minutes.<br/><br/> We will pay you $0.50 for your participation and an additional bonus of up to 0.50$ based on your performance.</p>
-                    <p>Please click on the "next"-button below to start</p>
+            <div style="position:absolute; margin-top: 100px;">
+                <div class="col-md-12" style="margin-bottom:50px;">
+                    <h3>Password rules</h3>
+                </div>
+                <div class="col-md-12" ng-hide="options.rule == '1' || options.rhythm == '1'">Please imagine a password that you would use to secure your Email-account.</div>
+
+                <div class="col-md-12" ng-show="options.rule == '1' || options.rhythm == '1'">
+                    <p><b>Please first read the complete following ruleset before you think of a password:</b></p>
+                    Create your password with the following constraints:
+                    <ul>
+                       <li ng-show="options.rule == '1'"><b>It has to consist of 8 or more characters</b></li>
+                       <li ng-show="options.rule == '1'"><b>It has to contain at least one element of each of these categories:</b>
+                       <ul>
+                           <li>Letter</li>
+                           <li>Number</li>
+                           <li>Special character</li>
+                       </ul>
+                       </li>
+                        <li ng-show="options.rhythm == '1'"><b>It has to be entered with specific rhythm </b> (e.g. define short and long pauses or enter it in a beat of a song)</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12" style="margin-top:50px;">
+                    <p>If you found a suitable password, please click on "Next" and enter it a several times.</p>
                 </div>
             </div>
 
@@ -47,9 +67,8 @@
 	angular.module('rhythm', []).controller('MainController', ['$scope','$http','$templateCache', '$location', function($scope, $http, $templateCache, $location) {
         $scope.startTime = Date.now();
 
-		$scope.mturkid = $location.search().i;
-
 		$scope.options = {
+            'run_id': $location.search().i,
 			'rhythm': $location.search().rh,
 			'rule' : $location.search().ru
 		};
@@ -57,22 +76,16 @@
         $scope.next = function(){
             $http({
 				method: 'POST',
-				url: 'php/new_participant.php',
+				url: 'php/log_next.php',
 				data: {
-					'rhythm' : $scope.options.rhythm,
-                    'rule' : $scope.options.rule,
-                    'mturkid': $scope.mturkid,
-                    'duration': Date.now()-$scope.startTime,
-                    'page': 1
+					'run_id': $scope.options.run_id,
+					'duration': Date.now()-$scope.startTime,
+					'page': 3
 				},
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 				cache: $templateCache
 			}).then(function(data){
-                var paramstring = "#?i="+data.data+"&ru="+$scope.options.rule+"&rh="+$scope.options.rhythm;
-                if($scope.options.rhythm == "1")
-				    document.location = "/rhythmicpasswords.html"+paramstring;
-                else
-                    document.location = "/rules.html"+paramstring;
+                document.location = "/passwordenter.html#?step=1&i="+ $scope.options.run_id+"&ru="+$scope.options.rule+"&rh="+$scope.options.rhythm;
 			});
         }
 	}]);

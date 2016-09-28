@@ -1,16 +1,18 @@
-postgres:
-  image: postgres:latest
-  volumes:
-    - ./postgres:/docker-entrypoint-initdb.d/
-  ports:
-    - 5432:5432
+version: '2'
 
-rhythm:
-  dockerfile: Dockerfile
-  build: .
-  volumes:
-        - .:/var/www/html
-  links:
-    - postgres:pg
-  ports:
-    - 80:80
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+
+  rhythm:
+    build: .
+    volumes:
+          - .:/var/www/html
+    depends_on:
+      - postgres
+    ports:
+      - "80:80"
