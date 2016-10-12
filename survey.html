@@ -5,7 +5,7 @@
 </head>
 <body ng-controller="MainController">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3" style="margin-top:50px; height:1050px; border-radius: 5px;" >
+        <div class="col-md-6 col-md-offset-3" style="margin-top:50px; height:600px; border-radius: 5px;" >
             <div style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; border-top-left-radius: 5px; border-top-right-radius: 5px; ">
                 <div class="row">
                     <div class="col-md-8">
@@ -27,7 +27,7 @@
 						<div class="col-md-1 text-center">Agree</div>
 						<div class="col-md-1 text-center">Strongly agree</div>
 					</div>
-					<div class="row surveyblock"  style="border-bottom:1px grey solid">
+					<div class="row surveyblock"  style="border-bottom:1px grey solid" ng-show="step == 0">
 						<div class="col-md-7" style="height:35px;">It was easy for me to find a password.</div>
 						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="1"></div>
 						<div class="col-md-1"><input type="radio" name="q1" ng-model="q1" value="2"></div>
@@ -66,7 +66,7 @@
 						<div class="col-md-1"><input type="radio" name="q6" ng-model="q6" value="5"></div>
 					</div>
 
-					<div class="row surveyblock" style="border-bottom:1px grey solid" ng-show="options.rhythm == '1'">
+					<div class="row surveyblock" style="border-bottom:1px grey solid" ng-show="options.rhythm == '1' && step == 1">
 						<div class="col-md-7" style="height:35px;">It was easy for me to find a rhythm.</div>
 						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="1"></div>
 						<div class="col-md-1"><input type="radio" name="q7" ng-model="q7" value="2"></div>
@@ -117,7 +117,7 @@
 						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="4"></div>
 						<div class="col-md-1"><input type="radio" name="q14" ng-model="q14" value="5"></div>
 					</div>
-					<div class="row surveyblock">
+					<div class="row surveyblock" ng-show="step == 2">
 						<div class="col-md-7" style="height:35px;">I use computers regularly.</div>
 						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="1"></div>
 						<div class="col-md-1"><input type="radio" name="q15" ng-model="q15" value="2"></div>
@@ -128,20 +128,20 @@
 						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="instrument" ng-model="instrument" value="0"> no</label></div>
 						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="instrument" ng-model="instrument" value="1"> yes</label></div>
 					</div>
-					<div class="row" ng-show="options.rhythm">
+					<div class="row" ng-show="options.rhythm && step == 2">
 						<div class="col-md-7">What did you first made up?</div>
 						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="q16" ng-model="q16" value="1"> Rhythm</label></div>
 						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="q16" ng-model="q16" value="2"> Password</label></div>
 						<div class="col-md-3"><label class="radio-inline"><input type="radio" name="q16" ng-model="q16" value="3"> I can't remember</label></div>
 					</div>
-					<div class="row">
+					<div class="row" ng-show="step == 2">
 						<div class="col-md-7">What is your gender?</div>
 						<div class="col-md-1"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="1"> Male</label></div>
 						<div class="col-md-2"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="2"> Female</label></div>
 						<div class="col-md-1 col-md-offset-7"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="3"> Other</label></div>
 						<div class="col-md-3"><label class="radio-inline"><input type="radio" name="gender" ng-model="gender" value="0"> Prefer not to answer</label></div>
 					</div>
-					<div class="row" style="margin-bottom:20px;">
+					<div class="row" style="margin-bottom:20px;" ng-show="step == 2">
 						<div class="col-md-7"><span>What is your age?</span></div>
 						<div class="col-md-5"><input type="text" name="age" ng-model="age" value=""></div>
 					</div>
@@ -149,17 +149,7 @@
                 </div>
             </div>
 
-            <div ng-show="options.rhythm == '1'" style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; margin-top:1050px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h3 style="margin-top:10px; margin-left:10px;"></h3>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-primary btn-block" style="margin-top:10px; margin-left:10px;" ng-click="next()">Next</button>
-                    </div>
-                </div>
-            </div>
-            <div ng-hide="options.rhythm == '1'" style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; margin-top:650px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
+            <div style="position:absolute; width:100%; height: 50px;background-color:#cccccc; margin-left:-15px; margin-top:650px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
                 <div class="row">
                     <div class="col-md-8">
                         <h3 style="margin-top:10px; margin-left:10px;"></h3>
@@ -180,6 +170,8 @@
 <script type="text/javascript">
 
 	angular.module('rhythm', []).controller('MainController', ['$scope','$http','$templateCache', '$location', function($scope, $http, $templateCache, $location) {
+		$scope.step = 0;
+
         $scope.startTime = Date.now();
 
         $scope.q1 = 0;
@@ -221,43 +213,46 @@
 			'rule' : $location.search().ru
 		};
 
-        $scope.heightcomplete = $scope.options.rhythm == "1" ? "{'height': '1050px'}" : "{'height': '600px'}"
-        $scope.heightbar = $scope.options.rhythm == "1" ? "{'margin-top': '998px'}" : "{'height': '598px'}"
-
         $scope.next = function(){
-            $http({
-				method: 'POST',
-				url: 'php/log_next.php',
-				data: {
-					'run_id': $scope.options.run_id,
-					'duration': Date.now()-$scope.startTime,
-					'page': 9,
-                    'q1': $scope.q1,
-                    'q2': $scope.q2,
-                    'q3': $scope.q3,
-                    'q4': $scope.q4,
-                    'q5': $scope.q5,
-                    'q6': $scope.q6,
-                    'q7': $scope.q7,
-                    'q8': $scope.q8,
-                    'q9': $scope.q9,
-                    'q10': $scope.q10,
-                    'q11': $scope.q11,
-                    'q12': $scope.q12,
-                    'q13': $scope.q13,
-                    'q14': $scope.q14,
-                    'q15': $scope.q15,
-                    'q16': $scope.q16,
-                    'gender': $scope.gender,
-                    'age':$scope.age,
-                    'instrument': $scope.instrument,
-                    'browser': $scope.browser
-				},
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				cache: $templateCache
-			}).then(function(data){
-                document.location = "/passwordenter.html#?step=7&i="+ $scope.options.run_id+"&ru="+$scope.options.rule+"&rh="+$scope.options.rhythm;
-			});
+            if($scope.step == 0){
+                $scope.step = $scope.options.rhythm == '1' ? 1 : 2;
+            } else if ($scope.step == 1) {
+                $scope.step = 2;
+            } else {
+                $http({
+                    method: 'POST',
+                    url: 'php/log_next.php',
+                    data: {
+                        'run_id': $scope.options.run_id,
+                        'duration': Date.now()-$scope.startTime,
+                        'page': 9,
+                        'q1': $scope.q1,
+                        'q2': $scope.q2,
+                        'q3': $scope.q3,
+                        'q4': $scope.q4,
+                        'q5': $scope.q5,
+                        'q6': $scope.q6,
+                        'q7': $scope.q7,
+                        'q8': $scope.q8,
+                        'q9': $scope.q9,
+                        'q10': $scope.q10,
+                        'q11': $scope.q11,
+                        'q12': $scope.q12,
+                        'q13': $scope.q13,
+                        'q14': $scope.q14,
+                        'q15': $scope.q15,
+                        'q16': $scope.q16,
+                        'gender': $scope.gender,
+                        'age':$scope.age,
+                        'instrument': $scope.instrument,
+                        'browser': $scope.browser
+                    },
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    cache: $templateCache
+                }).then(function(data){
+                    document.location = "/passwordenter.html#?step=7&i="+ $scope.options.run_id+"&ru="+$scope.options.rule+"&rh="+$scope.options.rhythm;
+                });
+            }
         }
 	}]);
 </script>

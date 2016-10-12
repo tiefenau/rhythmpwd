@@ -69,9 +69,9 @@
 				cache: $templateCache
 			}).then(function(data){
                 var paramstring = "#?i="+data.data+"&ru="+$scope.options.rule+"&rh="+$scope.options.rhythm;
-                if($scope.options.rhythm == "1")
+                /*if($scope.options.rhythm == "1")
 				    document.location = "/rhythmicpasswords.html"+paramstring;
-                else
+                else*/
                     document.location = "/rules.html"+paramstring;
 			});
         }
