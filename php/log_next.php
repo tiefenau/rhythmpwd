@@ -24,7 +24,7 @@
             }
             $array_txt = substr($array_txt, 0, -1)."]";
 
-            pg_query("INSERT INTO inputs (input, run_id, pwd, backspaces, firstkeypress) VALUES (".$array_txt.",".$data->run_id.", '".$data->password."',".$data->backspaces.",".$data->firstkeypress.")");
+            pg_query("INSERT INTO inputs (input, run_id, pwd, backspaces, firstkeypress, requirementserror) VALUES (".$array_txt.",".$data->run_id.", '".$data->password."',".$data->backspaces.",".$data->firstkeypress.",'".$data->requirementserror."')");
 
             break;
 
