@@ -24,7 +24,13 @@
             }
             $array_txt = substr($array_txt, 0, -1)."]";
 
-            pg_query("INSERT INTO inputs (input, run_id, pwd, backspaces, firstkeypress, requirementserror) VALUES (".$array_txt.",".$data->run_id.", '".$data->password."',".$data->backspaces.",".$data->firstkeypress.",'".$data->requirementserror."')");
+            $arrayshift_txt = "array[";
+            for($y = 0; $y < count($data->shifts); $y++){
+               $arrayshift_txt .= $data->shifts[$y].",";
+            }
+            $arrayshift_txt = substr($arrayshift_txt, 0, -1)."]";
+
+            pg_query("INSERT INTO inputs (input, shifts, run_id, pwd, backspaces, firstkeypress, requirementserror) VALUES (".$array_txt.",".$arrayshift_txt.",".$data->run_id.", '".$data->password."',".$data->backspaces.",".$data->firstkeypress.",'".$data->requirementserror."')");
 
             break;
 
