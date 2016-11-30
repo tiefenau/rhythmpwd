@@ -77,8 +77,8 @@
         $scope.mturkid = QueryString.i;
 
         $scope.options = {
-            'rhythm': QueryString.rh,
-            'rule' : QueryString.ru
+            'rhythm': QueryString.rh ? QueryString.rh : Math.floor(Math.random()*2),
+            'rule' : QueryString.ru ? QueryString.ru : Math.floor(Math.random()*2)
         };
 
         $scope.next = function(){

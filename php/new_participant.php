@@ -2,6 +2,10 @@
     $dbconn = pg_connect("host=postgres dbname=rhythm user=postgres") or die('Verbindungsaufbau fehlgeschlagen: ' . pg_last_error());
     $data = json_decode(file_get_contents("php://input"));
 
+    if($data->mturkid == "") {
+        $data->mturkid = "rand".substr(str_shuffle(str_repeat($x='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(20/strlen($x)) )),1,6);
+    }
+
     $params = array(
         "mturkid" => $data->mturkid,
         "rhythm" => $data->rhythm,
