@@ -30,6 +30,8 @@
             }
             if( count($data->shifts) > 0 ) {
                 $arrayshift_txt = substr($arrayshift_txt, 0, -1);
+            } else {
+                $arrayshift_txt .= "-1";
             }
             $arrayshift_txt .= "]";
 
