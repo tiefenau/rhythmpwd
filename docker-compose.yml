@@ -14,5 +14,6 @@ services:
           - .:/var/www/html
     depends_on:
       - postgres
+    command: /usr/sbin/apache2ctl -D FOREGROUND
     ports:
       - "80:80"
